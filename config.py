@@ -8,10 +8,10 @@ DB_NAME = "smartcart_db"
 
 
 # Email SMTP Settings
-MAIL_SERVER = 'smtp.gmail.com'
-MAIL_PORT = 587
+MAIL_SERVER = ''
+MAIL_PORT = 
 MAIL_USE_TLS = True
-MAIL_USERNAME = 'viveknaidugudivada@gmail.com'
+MAIL_USERNAME = 'Your Mail'
 MAIL_PASSWORD = ''   # Gmail App Password
 
 RAZORPAY_KEY_ID = ""
