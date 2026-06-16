@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Details</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #f3f4f6;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        /* CARD */
+        .card {
+            display: flex;
+            gap: 30px;
+            background: white;
+            border-radius: 14px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            flex-wrap: wrap;
+        }
+
+        /* IMAGE */
+        .image-box {
+            flex: 1;
+            text-align: center;
+        }
+
+        .image-box img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+        }
+
+        /* DETAILS */
+        .details {
+            flex: 2;
+        }
+
+        .details h3 {
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #16a34a;
+            margin-bottom: 15px;
+        }
+
+        .desc {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        /* BUTTONS */
+        .actions {
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-weight: 600;
+        }
+
+        .btn-back {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-edit {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-back:hover { background: #4b5563; }
+        .btn-edit:hover { background: #d97706; }
+        .btn-delete:hover { background: #dc2626; }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>📦 Product Details</h2>
+
+    <div class="card">
+
+        <!-- IMAGE -->
+        <div class="image-box">
+            <img src="/static/uploads/product_images/{{ product.image }}" alt="Product Image">
+        </div>
+
+        <!-- DETAILS -->
+        <div class="details">
+            <h3>{{ product.name }}</h3>
+
+            <div class="price">₹{{ product.price }}</div>
+
+            <div class="tag">{{ product.category }}</div>
+
+            <p class="desc">{{ product.description }}</p>
+
+            <!-- ACTIONS -->
+            <div class="actions">
+                <a href="/admin/item-list">
+                    <button class="btn btn-back">⬅ Back</button>
+                </a>
+
+                <a href="/admin/update-item/{{ product.product_id }}">
+                    <button class="btn btn-edit">✏ Edit</button>
+                </a>
+
+                <a href="/admin/delete-item/{{ product.product_id }}"
+                   onclick="return confirm('Are you sure to delete this product?')">
+                    <button class="btn btn-delete">🗑 Delete</button>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

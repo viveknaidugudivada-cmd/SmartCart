@@ -1,0 +1,197 @@
+{% extends "user/user_base.html" %}
+
+{% block content %}
+
+<style>
+    /* PAGE */
+    .success-container {
+        max-width: 900px;
+        margin: 40px auto;
+    }
+
+    /* SUCCESS BOX */
+    .success-box {
+        background: white;
+        padding: 30px;
+        border-radius: 14px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        margin-bottom: 25px;
+    }
+
+    .success-icon {
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+
+    .success-box h2 {
+        margin-bottom: 5px;
+    }
+
+    .sub-text {
+        color: #666;
+        font-size: 14px;
+    }
+
+    /* ORDER INFO GRID */
+    .order-info {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        text-align: left;
+    }
+
+    .order-info p {
+        background: #f9fafb;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 14px;
+    }
+
+    /* ITEMS */
+    .order-items {
+        background: white;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .order-items h3 {
+        margin-bottom: 15px;
+    }
+
+    .item-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .item-card:last-child {
+        border-bottom: none;
+    }
+
+    .item-info h4 {
+        margin: 0;
+        font-size: 15px;
+    }
+
+    .item-info p {
+        margin: 3px 0;
+        font-size: 13px;
+        color: #555;
+    }
+
+    .item-price {
+        font-weight: bold;
+        color: #1e3a8a;
+    }
+
+    /* ACTION BUTTONS */
+    .actions {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .btn {
+        padding: 12px 18px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: 0.2s;
+    }
+
+    /* BUTTON COLORS */
+    .btn.shop {
+        background: #e0f2fe;
+        color: #0369a1;
+    }
+
+    .btn.orders {
+        background: #ede9fe;
+        color: #5b21b6;
+    }
+
+    .btn.invoice {
+        background: #dcfce7;
+        color: #065f46;
+    }
+
+    /* HOVER */
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* RESPONSIVE */
+    @media(max-width: 600px) {
+        .order-info {
+            grid-template-columns: 1fr;
+        }
+
+        .actions {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<div class="success-container">
+
+    <!-- SUCCESS BOX -->
+    <div class="success-box">
+        <div class="success-icon">🎉</div>
+
+        <h2>Order Confirmed!</h2>
+        <p class="sub-text">Thank you for shopping with <strong>SmartCart</strong></p>
+
+        <p style="color:green; margin-top:10px;">
+            ✔ Your cart has been cleared after successful order
+        </p>
+
+        <div class="order-info">
+            <p><strong>Order ID:</strong> #{{ order.order_id }}</p>
+            <p><strong>Payment ID:</strong> {{ order.razorpay_payment_id }}</p>
+            <p><strong>Total Paid:</strong> ₹{{ order.amount }}</p>
+            <p><strong>Date:</strong> {{ order.created_at }}</p>
+        </div>
+    </div>
+
+    <!-- ITEMS -->
+    <div class="order-items">
+        <h3>🛒 Order Summary</h3>
+
+        {% for it in items %}
+        <div class="item-card">
+            <div class="item-info">
+                <h4>{{ it.product_name }}</h4>
+                <p>Qty: {{ it.quantity }}</p>
+            </div>
+
+            <div class="item-price">
+                ₹{{ it.price * it.quantity }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="actions">
+
+        <a href="/user/products" class="btn shop">Continue Shopping</a>
+
+        <a href="/user/my-orders" class="btn orders">View Orders</a>
+
+        <a href="/user/download-invoice/{{ order.order_id }}" class="btn invoice">
+            Download Invoice
+        </a>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

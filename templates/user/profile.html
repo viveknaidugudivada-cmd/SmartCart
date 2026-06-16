@@ -1,0 +1,284 @@
+{% extends "user/user_base.html" %}
+
+{% block content %}
+
+<style>
+    body {
+        background: #f5f6f8;
+    }
+
+    /* CONTAINER */
+    .profile-container {
+        max-width: 1050px;
+        margin: 40px auto;
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 25px;
+    }
+
+    /* PROFILE IMAGE */
+    .profile-img {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #e5e7eb;
+        display: block;
+        margin: 0 auto 10px;
+    }
+
+    /* UPLOAD BUTTON */
+    .upload-btn {
+        display: inline-block;
+        margin-top: 10px;
+        font-size: 12px;
+        color: #2563eb;
+        cursor: pointer;
+    }
+
+    .upload-btn input {
+        display: none;
+    }
+
+    /* LEFT PANEL */
+    .profile-left {
+        background: white;
+        border-radius: 12px;
+        padding: 30px 20px;
+        text-align: center;
+        border: 1px solid #e5e7eb;
+    }
+
+    .profile-avatar {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #111827, #374151);
+        color: white;
+        font-size: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        margin-bottom: 15px;
+    }
+
+    .profile-left h3 {
+        margin: 8px 0;
+        font-size: 18px;
+    }
+
+    .profile-left p {
+        font-size: 13px;
+        color: #6b7280;
+    }
+
+    .member {
+        margin-top: 10px;
+        font-size: 12px;
+        color: #9ca3af;
+    }
+
+    /* RIGHT PANEL */
+    .profile-right {
+        background: white;
+        border-radius: 12px;
+        padding: 35px 45px;
+        /* 👈 increased left & right padding */
+        border: 1px solid #e5e7eb;
+    }
+
+    /* HEADER */
+    .section-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    /* FORM GRID */
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 20px;
+        row-gap: 22px;
+        /* 👈 better vertical spacing */
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    \.form-group input,
+    .form-group textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .form-grid>.form-group {
+        min-width: 0;
+        /* 👈 prevents overflow pushing into next column */
+    }
+
+    .form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 25px;
+    }
+
+    label {
+        font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 2px;
+        /* reduce manual margin */
+    }
+
+    input,
+    textarea {
+        line-height: 1.5;
+    }
+
+    /* FULL WIDTH */
+    .full {
+        grid-column: span 2;
+    }
+
+    /* INPUT */
+    label {
+        font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        font-size: 14px;
+        transition: 0.2s;
+    }
+
+    input:focus,
+    textarea:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+        outline: none;
+    }
+
+    /* DISABLED */
+    input[disabled] {
+        background: #f9fafb;
+        color: #9ca3af;
+    }
+
+    /* BUTTON */
+    .btn-save {
+        margin-top: 25px;
+        width: 100%;
+        padding: 14px;
+        border-radius: 10px;
+        border: none;
+        font-weight: 600;
+        background: linear-gradient(135deg, #2563eb, #3b82f6);
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-save:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+    }
+
+    .after-save {
+        margin-top: 15px;
+        text-align: center;
+    }
+
+    .go-products-btn {
+        display: inline-block;
+        padding: 10px 18px;
+        background: #ffd814;
+        border-radius: 6px;
+        text-decoration: none;
+        color: black;
+        font-weight: 600;
+    }
+
+    .go-products-btn:hover {
+        background: #f7ca00;
+    }
+</style>
+
+
+<form method="POST" enctype="multipart/form-data">
+
+<div class="profile-container">
+
+    <!-- LEFT -->
+    <div class="profile-left">
+
+        {% if user.image %}
+        <img src="/static/uploads/profile/{{ user.image }}" class="profile-img" id="preview-img">
+        {% else %}
+        <div class="profile-avatar" id="preview-img">
+            {{ user.name[0]|upper }}
+        </div>
+        {% endif %}
+
+        <label class="upload-btn">
+            Change Photo
+            <input type="file" name="profile_image" id="image-input">
+        </label>
+
+        <h3>{{ user.name }}</h3>
+        <p>{{ user.email }}</p>
+        <div class="member">Member since 2026</div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="profile-right">
+
+        <div class="section-title">Account Details</div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="name" value="{{ user.name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" value="{{ user.email }}" disabled>
+            </div>
+
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="text" name="phone" value="{{ user.phone or '' }}">
+            </div>
+
+            <div class="form-group">
+                <label>City</label>
+                <input type="text" name="city">
+            </div>
+
+            <div class="form-group full">
+                <label>Address</label>
+                <textarea name="address" rows="3">{{ user.address or '' }}</textarea>
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn-save">Save Changes</button>
+
+    </div>
+
+</div>
+
+</form>
+{% endblock %}

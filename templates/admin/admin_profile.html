@@ -1,0 +1,15 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+
+<h2>Admin Profile</h2>
+
+<div class="profile-card">
+    <img src="{{ url_for('static', filename='uploads/admin_profiles/' + session.get('admin_profile', 'default.png')) }}" width="120">
+    <h3>{{ session['admin_name'] }}</h3>
+    <p>{{ session['admin_email'] }}</p>
+    <a href="/admin/profile-edit" class="btn">Edit Profile</a>
+</div>
+
+
+{% endblock %}

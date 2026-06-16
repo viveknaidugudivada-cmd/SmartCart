@@ -1,0 +1,43 @@
+{% extends "base_auth.html" %}
+
+{% block content %}
+
+<div class="card">
+
+    <div class="logo">🛒 Smart<span>Cart</span></div>
+    <div class="badge">ADMIN PANEL</div>
+
+    <h2>Create Admin Account</h2>
+
+    <div class="info">
+        Your request will be sent to Super Admin for approval.
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% set category, message = messages[-1] %}
+    <div class="flash {{ category }}">
+        {{ message }}
+    </div>
+  {% endif %}
+{% endwith %}
+
+    <form method="POST">
+
+        <label>Full Name</label>
+        <input type="text" name="name" placeholder="Enter Name" required>
+
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Enter your Email" required>
+
+        <button class="btn">Send OTP</button>
+
+    </form>
+
+    <div class="back">
+        <a href="/admin-login">← Back to Admin Login</a>
+    </div>
+
+</div>
+
+{% endblock %}

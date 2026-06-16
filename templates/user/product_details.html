@@ -1,0 +1,139 @@
+{% extends "user/user_base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="product-wrapper">
+
+        <!-- LEFT: IMAGE -->
+        <div class="product-left">
+            <img src="/static/uploads/product_images/{{ product.image }}" class="main-img">
+        </div>
+
+        <!-- CENTER: DETAILS -->
+        <div class="product-center">
+
+            <h1 class="product-title">{{ product.name }}</h1>
+
+            <p class="price">₹{{ product.price }}</p>
+
+            {% if product.stock > 0 %}
+            <span class="in-stock">✔ In Stock</span>
+            {% else %}
+            <span class="out-stock">❌ Out of Stock</span>
+            {% endif %}
+
+            <hr>
+
+            <p class="desc">{{ product.description }}</p>
+
+        </div>
+
+        <!-- RIGHT: BUY BOX -->
+        <div class="product-right">
+
+            <div class="buy-box">
+
+                <h2 class="price">₹{{ product.price }}</h2>
+
+                <p class="delivery">🚚 Free delivery in 2-4 days</p>
+
+                {% if product.stock > 0 %}
+                <p class="in-stock">✔ Available</p>
+
+                <div class="buy-actions">
+
+                    <!-- ADD TO CART -->
+                    <a href="#" class="btn cart-btn" id="cart-btn" data-product="{{ product.product_id }}">
+                        🛒 Add to Cart
+                    </a>
+
+                    <!-- BUY NOW -->
+                    <a href="/user/buy-now/{{ product.product_id }}" class="btn buy-now">
+                        ⚡ Buy Now
+                    </a>
+
+                </div>
+
+                {% else %}
+                <p class="out-stock">❌ Out of stock</p>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RELATED PRODUCTS -->
+    <div class="related-section">
+
+        <div class="section-header">
+            <h3>🔥 Related Products</h3>
+        </div>
+
+        <div class="related-products">
+
+            {% for p in related_products %}
+            <div class="product-card">
+
+                <a href="/user/product/{{ p.product_id }}">
+                    <img src="/static/uploads/product_images/{{ p.image }}">
+                </a>
+
+                <h4>{{ p.name }}</h4>
+                <p class="price">₹{{ p.price }}</p>
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const btn = document.getElementById("cart-btn");
+
+    if (!btn) return;
+
+    btn.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        // If already added → go to cart
+        if (btn.classList.contains("added")) {
+            window.location.href = "/user/cart";
+            return;
+        }
+
+        const productId = btn.getAttribute("data-product");
+
+        fetch(`/user/add-to-cart/${productId}`, {
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+
+            // Change button
+            btn.innerHTML = "👁 View Cart";
+            btn.classList.add("added");
+
+            // Update cart count
+            document.querySelector(".cart-count").innerText = data.cart_count;
+
+        })
+        .catch(err => {
+            alert("Error adding to cart");
+        });
+
+    });
+
+});
+</script>
+
+{% endblock %}

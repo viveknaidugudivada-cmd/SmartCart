@@ -1,0 +1,45 @@
+{% extends "base_auth.html" %}
+
+{% block content %}
+
+<div class="card">
+
+    <div class="logo">🛒 Smart<span>Cart</span></div>
+    <div class="badge">USER PANEL</div>
+
+    <h2>User Sign In</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% set category, message = messages[-1] %}
+    
+  {% endif %}
+{% endwith %}
+
+    <form method="POST">
+
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="Enter your email" required>
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter your password" required>
+
+        <div style="text-align:right; margin-bottom:15px;">
+            <a href="/forgot-password/user" style="font-size:13px;">Forgot Password?</a>
+        </div>
+
+        <button class="btn">Sign In</button>
+
+    </form>
+
+    <div class="back">
+        New to SmartCart? <a href="/user-register">Create Account</a>
+    </div>
+
+    <div class="back">
+        Are you a seller? <a href="/admin-login">Admin Login</a>
+    </div>
+
+</div>
+
+{% endblock %}

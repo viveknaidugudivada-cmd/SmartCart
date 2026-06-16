@@ -1,0 +1,191 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+
+<style>
+    /* PAGE LAYOUT */
+    .profile-container {
+        max-width: 900px;
+        margin: 40px auto;
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 25px;
+    }
+
+    /* LEFT PANEL (PROFILE CARD) */
+    .profile-left {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        text-align: center;
+        border: 1px solid #e5e7eb;
+    }
+
+    .profile-img {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #f08804;
+        margin-bottom: 10px;
+    }
+
+    /* EDIT ICON */
+    .edit-icon {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        background: #f08804;
+        color: white;
+        border-radius: 50%;
+        padding: 6px;
+        cursor: pointer;
+        font-size: 12px;
+    }
+
+    /* NAME + EMAIL */
+    .profile-left h3 {
+        margin: 10px 0 5px;
+    }
+
+    .profile-left p {
+        color: #666;
+        font-size: 13px;
+    }
+
+    /* RIGHT PANEL */
+    .profile-right {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        border: 1px solid #e5e7eb;
+    }
+
+    /* TITLE */
+    .section-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    /* FORM GRID */
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .full {
+        grid-column: span 2;
+    }
+
+    /* INPUT */
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .form-group label {
+        font-size: 13px;
+        color: #666;
+    }
+
+    .form-group input {
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+    }
+
+    .form-group input:focus {
+        border-color: #f08804;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(240, 136, 4, 0.2);
+    }
+
+    /* BUTTON */
+    .btn-update {
+        margin-top: 20px;
+        width: 100%;
+        padding: 13px;
+        border-radius: 8px;
+        border: none;
+        background: #f08804;
+        color: black;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .btn-update:hover {
+        background: #e07a00;
+    }
+</style>
+
+<div class="profile-container">
+
+    <!-- LEFT -->
+    <div class="profile-left">
+
+        <div style="position:relative; display:inline-block;">
+            <img id="preview"
+                 src="{{ url_for('static', filename='uploads/admin_profiles/' + session.get('admin_profile', 'default.png')) }}"
+                 class="profile-img">
+
+            <label for="fileUpload" class="edit-icon">✎</label>
+        </div>
+
+        <h3>{{ session['admin_name'] }}</h3>
+        <p>{{ session['admin_email'] }}</p>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="profile-right">
+
+        <div class="section-title">Account Details</div>
+
+        <form method="POST" action="/admin/profile" enctype="multipart/form-data">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" name="name" value="{{ session['admin_name'] }}">
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" value="{{ session['admin_email'] }}">
+                </div>
+
+                <div class="form-group full">
+                    <label>New Password</label>
+                    <input type="password" name="password" placeholder="Leave blank to keep old password">
+                </div>
+
+                <div class="form-group full">
+                    <label>Profile Image</label>
+                    <input id="fileUpload" type="file" name="profile_image" onchange="previewImage(event)">
+                </div>
+
+            </div>
+
+            <button class="btn-update">Save Changes</button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function () {
+            document.getElementById('preview').src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+
+{% endblock %}

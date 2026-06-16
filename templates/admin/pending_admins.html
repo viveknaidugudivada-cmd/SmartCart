@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pending Admins</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI';
+            background: linear-gradient(135deg, #eef2f7, #f8fafc);
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 14px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #111827;
+            color: white;
+        }
+
+        tr.fade-out {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: 0.4s ease;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .approve {
+            background: #22c55e;
+            color: white;
+        }
+
+        .reject {
+            background: #ef4444;
+            color: white;
+        }
+
+        .approve:hover {
+            background: #16a34a;
+        }
+
+        .reject:hover {
+            background: #dc2626;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .back {
+            display: block;
+            width: 200px;
+            margin: 25px auto 0;
+            text-align: center;
+            padding: 10px;
+            background: #2563eb;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        /* 🔥 TOAST */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #111827;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>Pending Admin Approvals</h2>
+
+        <div class="card">
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+
+                {% for admin in admins %}
+                <tr>
+                    <td>{{ admin.name }}</td>
+                    <td>{{ admin.email }}</td>
+                    <td>
+                        <button class="btn approve" data-id="{{ admin.id }}" onclick="approveAdmin(this)">
+                            Approve
+                        </button>
+
+                        <button class="btn reject" data-id="{{ admin.id }}" onclick="rejectAdmin(this)">
+                            Reject
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <a href="/admin-dashboard" class="back">⬅ Back to Dashboard</a>
+
+    </div>
+
+    <!-- 🔥 TOAST -->
+    <div id="toast" class="toast"></div>
+    <script>
+        function approveAdmin(btn) {
+            const adminId = btn.getAttribute("data-id");
+
+            fetch(`/super-admin/approve/${adminId}`, {
+                method: "POST"
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        btn.closest("tr").remove();
+                    }
+                });
+        }
+
+        function rejectAdmin(btn) {
+            const adminId = btn.getAttribute("data-id");
+
+            fetch(`/super-admin/reject/${adminId}`, {
+                method: "POST"
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        btn.closest("tr").remove();
+                    }
+                });
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+{% extends "user/user_base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/user-dashboard">Home</a> › <span>All Products</span>
+  </div>
+
+  <!-- FILTER BOX -->
+  <div class="filter-box">
+    <form method="GET" action="/user/products">
+
+      <div class="search-left">
+        <label>Search Products</label>
+        <input type="text" name="search" placeholder="Search..." value="{{ request.args.get('search','') }}">
+      </div>
+
+      <div class="search-right">
+        <div>
+          <label>Category</label><br>
+          <select name="category">
+            <option value="">All Categories</option>
+            {% for c in categories %}
+            <option value="{{ c.category }}">{{ c.category }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <button type="submit">🔍 Search</button>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- RESULT COUNT -->
+  <p class="result-count">Showing {{ products|length }} result(s)</p>
+
+  <!-- PRODUCTS GRID -->
+  <div class="product-grid">
+
+    {% for product in products %}
+    <div class="product-card">
+
+      <!-- IMAGE + BADGE -->
+      <div class="product-img-box">
+        <img src="/static/uploads/product_images/{{ product.image }}">
+
+        {% if product.discount %}
+        <span class="discount-badge">-{{ product.discount }}%</span>
+        {% endif %}
+      </div>
+
+      <!-- NAME -->
+      <h4 class="product-title">{{ product.name }}</h4>
+
+      <!-- ⭐ RATING -->
+      <div class="rating">
+        ⭐ 4.3 <span>(1,234)</span>
+      </div>
+
+      <!-- PRICE -->
+      <div class="price-box">
+        <span class="new-price">₹{{ product.price }}</span>
+
+        {% if product.old_price %}
+        <span class="old-price">₹{{ product.old_price }}</span>
+        {% endif %}
+      </div>
+
+      <!-- STOCK -->
+      {% if product.stock > 0 %}
+      <p class="in-stock">✔ In Stock</p>
+      {% else %}
+      <p class="out-stock">❌ Out of Stock</p>
+      {% endif %}
+
+      <!-- ACTIONS -->
+      <div class="product-actions">
+        <a href="/user/product/{{ product.product_id }}" class="btn view">View</a>
+        <a href="/user/add-to-cart/{{ product.product_id }}" class="btn cart-btn">Add</a>
+      </div>
+
+    </div>
+    {% endfor %}
+
+  </div>
+
+</div>
+
+{% endblock %}

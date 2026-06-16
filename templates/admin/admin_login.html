@@ -1,0 +1,47 @@
+{% extends "base_auth.html" %}
+
+{% block content %}
+
+<div class="card">
+
+    <div class="logo">🛒 Smart<span>Cart</span></div>
+    <div class="badge">ADMIN PANEL</div>
+
+    <h2>Admin Sign In</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% set category, message = messages[-1] %}
+    <div class="flash {{ category }}">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="Enter your email" required>
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter your password" required>
+
+        <div style="text-align:right; margin-bottom:15px;">
+            <a href="/forgot-password/admin" style="font-size:13px;">Forgot Password?</a>
+        </div>
+
+        <button class="btn">Sign In</button>
+
+    </form>
+
+    <div class="back">
+        New Admin? <a href="/admin-signup">Create Account</a>
+    </div>
+
+    <div class="back">
+        Not an admin? <a href="/user-login">User Login</a>
+    </div>
+
+</div>
+
+{% endblock %}

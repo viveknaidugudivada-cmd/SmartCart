@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SmartCart Register</title>
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #eef2f7, #f8fafc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 35px;
+            width: 360px;
+            border-radius: 14px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .logo span {
+            color: #f59e0b;
+        }
+
+        h2 {
+            margin-bottom: 24px;
+            font-size: 22px;
+            font-weight: 700;
+            text-align: left;
+            background: linear-gradient(to right, #080808, #0f0e0b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            margin-bottom: 18px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+            background: #f9fafb;
+            transition: 0.25s ease;
+        }
+
+        input:focus {
+            border-color: #f59e0b;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, #fbbf24, #f59e0b);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(245, 158, 11, 0.3);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 13px;
+        }
+
+        .login-link a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .flash {
+            color: #dc2626;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            margin-bottom: 18px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+            background: #f9fafb;
+            transition: 0.25s ease;
+            resize: none;
+            /* optional */
+        }
+
+        textarea:focus {
+            border-color: #f59e0b;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #333;
+            display: block;
+            /* ensures proper alignment */
+            margin-bottom: 4px;
+        }
+
+        .required {
+            color: red;
+            font-weight: lighter;
+        }
+
+        input,
+        textarea {
+            color: #000 !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+
+        <div class="logo">
+            🛒 Smart<span>Cart</span>
+        </div>
+
+        <h2>Create Account</h2>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% set category, message = messages[-1] %}
+        
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="/user-register">
+
+            <label>Name <span class="required">*</span></label>
+            <input type="text" name="name" class="required" placeholder="Enter your name" required>
+
+            <label>Email <span class="required">*</span></label>
+            <input type="email" name="email" class="required" placeholder="Enter your email" required>
+
+            <label>Password <span class="required">*</span></label>
+            <input type="password" name="password" class="required" placeholder="At least 6 characters" required>
+
+            <label>Contact <span class="required">*</span></label>
+            <input type="text" name="phone" class="required" placeholder="10-digit mobile number" required>
+
+            <label>Address <span class="required">*</span></label>
+            <textarea name="address" rows="2" class="required" placeholder="Enter your address"></textarea>
+
+            <button type="submit" class="btn-primary">Register</button>
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="/user-login">Login</a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

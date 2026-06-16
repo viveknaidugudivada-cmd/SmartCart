@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order #{{ order.order_id }}</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f3f4f6;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        /* STATUS BADGE */
+        .status {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status.placed { background:#e0f2fe; color:#0369a1; }
+        .status.confirmed { background:#dbeafe; color:#1e40af; }
+        .status.packed { background:#fef3c7; color:#92400e; }
+        .status.shipped { background:#fde68a; color:#78350f; }
+        .status.delivered { background:#dcfce7; color:#166534; }
+
+        /* GRID */
+        .order-meta {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .order-meta div {
+            font-size: 14px;
+        }
+
+        /* FORM */
+        .update-box {
+            margin-top: 20px;
+        }
+
+        select {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .btn-update {
+            background: #2563eb;
+            color: white;
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th {
+            background: #1e293b;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:768px){
+            .order-meta {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                margin: 10px 0 0 0;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ORDER INFO -->
+    <div class="card">
+        <h2>Order #{{ order.order_id }}</h2>
+
+        <div class="order-meta">
+            <div>
+                <strong>Payment:</strong><br>
+                {{ order.payment_status }}
+            </div>
+
+            <div>
+                <strong>Total:</strong><br>
+                ₹{{ order.amount }}
+            </div>
+
+            <div>
+                <strong>Status:</strong><br>
+                <span class="status {{ order.order_status | lower }}">
+                    {{ order.order_status }}
+                </span>
+            </div>
+
+            <div>
+                <strong>Date:</strong><br>
+                {{ order.created_at }}
+            </div>
+        </div>
+
+        <!-- UPDATE STATUS -->
+        <div class="update-box">
+            <form method="POST" action="/admin/update-order-status/{{ order.order_id }}">
+
+                <select name="status">
+                    <option value="Placed" {% if order.order_status=='Placed' %}selected{% endif %}>Placed</option>
+                    <option value="Confirmed" {% if order.order_status=='Confirmed' %}selected{% endif %}>Confirmed</option>
+                    <option value="Packed" {% if order.order_status=='Packed' %}selected{% endif %}>Packed</option>
+                    <option value="Shipped" {% if order.order_status=='Shipped' %}selected{% endif %}>Shipped</option>
+                    <option value="Delivered" {% if order.order_status=='Delivered' %}selected{% endif %}>Delivered</option>
+                </select>
+
+                <button type="submit" class="btn btn-update">
+                    Update Status
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- ITEMS -->
+    <div class="card">
+        <h3>Order Items</h3>
+
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+
+            {% for it in items %}
+            <tr>
+                <td>{{ it.product_name }}</td>
+                <td>{{ it.quantity }}</td>
+                <td>₹{{ it.price }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

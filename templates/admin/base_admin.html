@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+
+    <style>
+        /* RESET */
+        /* GLOBAL */
+        /* GLOBAL */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: #131921;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* LOGO */
+        .nav-left {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .nav-left span {
+            color: #f08804;
+        }
+
+        /* NAV LINKS */
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #ddd;
+            font-size: 14px;
+            text-decoration: none;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: #f08804;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* RIGHT */
+        .nav-right {
+            position: relative;
+        }
+
+        /* PROFILE BUTTON */
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .profile-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* PROFILE IMAGE */
+        .profile-img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+
+        /* TEXT */
+        .profile-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+
+        .profile-text small {
+            color: #bbb;
+            font-size: 11px;
+        }
+
+        .profile-text span {
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* DROPDOWN */
+        .profile-dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 55px;
+            background: white;
+            min-width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            /* 🔥 VERY IMPORTANT */
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 13px 15px;
+            font-size: 14px;
+            color: #111;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background: #f5f5f5;
+        }
+
+
+
+        /* CONTENT */
+        .content {
+            padding: 30px;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 13px;
+            color: #777;
+        }
+
+        /* ANIMATION */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+
+        <!-- LEFT LOGO -->
+        <div class="nav-left">
+            🛒 <span>SmartCart</span>
+        </div>
+
+        <!-- CENTER NAV -->
+        <div class="nav-links">
+            <a href="/admin-dashboard">Dashboard</a>
+
+            {% if session.get('admin_role') == 'super_admin' %}
+            <a href="/super-admin/pending-admins">Approve Admins</a>
+            {% endif %}
+
+            <a href="/admin/item-list">Products</a>
+            <a href="/admin/add-item">Add Product</a>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="nav-right">
+
+            <div class="profile-dropdown">
+
+                <!-- 🔥 PROFILE BUTTON (UPGRADED) -->
+                <div class="profile-btn" onclick="toggleDropdown()">
+
+                    <img src="{{ url_for('static', filename='uploads/admin_profiles/' + (session.get('admin_profile') or 'default.png')) }}"
+                        class="profile-img">
+
+                    <div class="profile-text">
+                        <small>Hello, Admin</small>
+                        <span>{{ session['admin_name'] }}</span>
+                    </div>
+
+                </div>
+
+                <!-- DROPDOWN -->
+                <div id="dropdownMenu" class="dropdown-content">
+                    <a href="/admin/profile-edit">Edit Profile</a>
+                    <a href="/admin-logout">🚪 Logout</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <div class="footer">
+        © 2026 SmartCart Admin Panel
+    </div>
+    <script>
+        function toggleDropdown() {
+            const menu = document.getElementById("dropdownMenu");
+            menu.classList.toggle("show");
+        }
+
+        // Close when clicking outside
+        document.addEventListener("click", function (e) {
+            const dropdown = document.querySelector(".profile-dropdown");
+
+            if (!dropdown.contains(e.target)) {
+                document.getElementById("dropdownMenu").classList.remove("show");
+            }
+        });
+    </script>
+</body>
+
+</html>

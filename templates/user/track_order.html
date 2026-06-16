@@ -1,0 +1,104 @@
+{% extends "user/user_base.html" %}
+
+{% block content %}
+
+<style>
+    .track-container {
+        max-width: 900px;
+        margin: 40px auto;
+    }
+
+    .track-card {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    /* TIMELINE */
+    .timeline {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        position: relative;
+    }
+
+    .timeline::before {
+        content: "";
+        position: absolute;
+        top: 10px;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: #e5e7eb;
+    }
+
+    .step {
+        flex: 1;
+        text-align: center;
+        position: relative;
+        font-size: 13px;
+    }
+
+    .step::before {
+        content: "";
+        width: 14px;
+        height: 14px;
+        background: #ddd;
+        border-radius: 50%;
+        display: block;
+        margin: 0 auto 8px;
+    }
+
+    .step.active::before {
+        background: #16a34a;
+    }
+
+    .step.active {
+        color: #16a34a;
+        font-weight: 600;
+    }
+</style>
+
+<div class="track-container">
+
+    <div class="track-card">
+
+        <h2>🚚 Track Order #{{ order.order_id }}</h2>
+
+        <p><strong>Status:</strong> {{ order.order_status }}</p>
+        <p><strong>Total:</strong> ₹{{ order.amount }}</p>
+
+        <!-- TIMELINE -->
+        <div class="timeline">
+
+            <div
+                class="step {% if order.order_status in ['Placed','Packed','Shipped','Out for Delivery','Delivered'] %}active{% endif %}">
+                Placed
+            </div>
+
+            <div
+                class="step {% if order.order_status in ['Packed','Shipped','Out for Delivery','Delivered'] %}active{% endif %}">
+                Packed
+            </div>
+
+            <div
+                class="step {% if order.order_status in ['Shipped','Out for Delivery','Delivered'] %}active{% endif %}">
+                Shipped
+            </div>
+
+            <div class="step {% if order.order_status in ['Out for Delivery','Delivered'] %}active{% endif %}">
+                Out for Delivery
+            </div>
+
+            <div class="step {% if order.order_status == 'Delivered' %}active{% endif %}">
+                Delivered
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

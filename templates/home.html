@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SmartCart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="logo">🛒 Smart<span style="color: #facc15;">Cart</span></div>
+
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How it Works</a>
+            <a href="#reviews">Reviews</a>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="/user-login" class="btn-outline">Login</a>
+            <a href="/user-register" class="btn-primary">Get Started →</a>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+
+            <p class="tag">India’s Smartest Shopping Platform</p>
+
+            <h1>
+                Shop Smarter.<br>
+                Live <span style="color: #facc15;">Better.</span>
+            </h1>
+
+            <p class="desc">
+                Discover millions of products at unbeatable prices. Fast delivery,
+                secure payments, and a seamless shopping experience.
+            </p>
+
+            <div class="buttons">
+                <a href="/user-register" class="btn primary">Start Shopping</a>
+                <a href="/admin-login" class="btn secondary">Admin Panel</a>
+            </div>
+
+            <!-- ✅ STATS (correct position) -->
+            <div class="stats">
+                <div class="stat">
+                    <h2>10K+</h2>
+                    <p>Happy Customers</p>
+                </div>
+                <div class="stat">
+                    <h2>500+</h2>
+                    <p>Products Listed</p>
+                </div>
+                <div class="stat">
+                    <h2>99%</h2>
+                    <p>Satisfaction Rate</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="products">
+
+            <div class="card card-main">
+                <img src="https://img.icons8.com/fluency/48/smartphone.png" />
+                <p>Premium Smartphone</p>
+            </div>
+
+            <div class="card card-left">
+                <img src="https://img.icons8.com/fluency/48/smartwatch.png" />
+                <p>Smart Watch</p>
+            </div>
+
+            <div class="card card-right">
+                <img src="https://img.icons8.com/fluency/48/headphones.png" />
+                <p>Wireless Earbuds</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- STATS -->
+
+    <!-- FEATURES -->
+    <div class="features-wrapper">
+        <div class="features-strip">
+
+            <div class="feature">🔁 Easy Returns</div>
+            <div class="feature">✅ 100% Genuine</div>
+            <div class="feature">💬 24/7 Support</div>
+            <div class="feature">🚚 Free Delivery ₹499+</div>
+            <div class="feature">🔒 Secure Payments</div>
+            <div class="feature">📄 Instant Invoice</div>
+
+            <div class="feature">🔁 Easy Returns</div>
+            <div class="feature">✅ 100% Genuine</div>
+            <div class="feature">💬 24/7 Support</div>
+            <div class="feature">🚚 Free Delivery ₹499+</div>
+            <div class="feature">🔒 Secure Payments</div>
+            <div class="feature">📄 Instant Invoice</div>
+        </div>
+    </div>
+
+    <!-- HOW SECTION -->
+    <section id="how-it-works" class="how-section">
+
+        <div class="how-header">
+            <p class="tag">SIMPLE PROCESS</p>
+            <h1>How SmartCart Works</h1>
+            <p class="desc">
+                Getting started takes less than 2 minutes. Browse, add to cart, and checkout securely.
+            </p>
+        </div>
+
+        <div class="steps-grid">
+
+            <div class="step-card">
+                <h2>01</h2>
+                <img src="https://img.icons8.com/fluency/48/user.png" />
+                <h3>Create Account</h3>
+                <p>Sign up in seconds with your email.</p>
+            </div>
+
+            <div class="step-card">
+                <h2>02</h2>
+                <img src="https://img.icons8.com/fluency/48/search.png" />
+                <h3>Browse Products</h3>
+                <p>Explore thousands of products.</p>
+            </div>
+
+            <div class="step-card">
+                <h2>03</h2>
+                <img src="https://img.icons8.com/fluency/48/shopping-cart.png" />
+                <h3>Add to Cart</h3>
+                <p>Add your favourite items easily.</p>
+            </div>
+
+            <div class="step-card">
+                <h2>04</h2>
+                <img src="https://img.icons8.com/fluency/48/bank-card-back-side.png" />
+                <h3>Pay Securely</h3>
+                <p>UPI, cards, wallets supported.</p>
+            </div>
+
+            <div class="step-card">
+                <h2>05</h2>
+                <img src="https://img.icons8.com/fluency/48/box.png" />
+                <h3>Fast Delivery</h3>
+                <p>Track your order easily.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    </div>
+    <div id="features" class="features">
+
+        <!-- HEADER INSIDE FEATURES -->
+        <div class="features-header">
+            <p class="tag">WHY CHOOSE US</p>
+            <h1>
+                Everything You Need,<br>
+                Nothing You <span>Don't</span>
+            </h1>
+        </div>
+
+        <!-- BIG CARD -->
+        <div class="feature-card large">
+            <div>
+                <h3>Bank-Grade Security</h3>
+                <p>Every transaction is protected by encryption...</p>
+            </div>
+
+            <div class="feature-badge">
+                <h2>256-bit</h2>
+                <span>SSL Encryption</span>
+            </div>
+        </div>
+
+        <!-- GRID -->
+        <div class="feature-grid">
+            <div class="feature-card">Instant PDF Invoices</div>
+            <div class="feature-card">Real-time Stock Tracking</div>
+            <div class="feature-card">Admin Dashboard</div>
+            <div class="feature-card">UPI Payments</div>
+        </div>
+
+    </div>
+    <div id="reviews" class="testimonials">
+        <div class="testimonials-header">
+            <p class="tag">CUSTOMER LOVE</p>
+            <h1>
+                What Our <span>Shoppers Say</span>
+            </h1>
+        </div>
+
+        <div  class="testimonial-grid">
+
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p>"SmartCart is amazing! The checkout is super fast..."</p>
+
+                <div class="user">
+                    <div class="avatar">R</div>
+                    <div>
+                        <h4>Rahul Sharma</h4>
+                        <span>Small Business Owner</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">★★★★☆</div>
+                <p>"Loved the smooth experience and fast delivery. Highly recommended!"</p>
+
+                <div class="user">
+                    <div class="avatar">P</div>
+                    <div>
+                        <h4>Priya Verma</h4>
+                        <span>Freelancer</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p>"Great UI and easy navigation. Shopping feels effortless here."</p>
+
+                <div class="user">
+                    <div class="avatar">A</div>
+                    <div>
+                        <h4>Amit Patel</h4>
+                        <span>Software Engineer</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">★★★☆☆</div>
+                <p>"Good products, but delivery could be a bit faster. Overall nice experience."</p>
+
+                <div class="user">
+                    <div class="avatar">S</div>
+                    <div>
+                        <h4>Sneha Reddy</h4>
+                        <span>Entrepreneur</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">★★★★☆</div>
+                <p>"Very reliable platform with great deals. Customer support was helpful too."</p>
+
+                <div class="user">
+                    <div class="avatar">K</div>
+                    <div>
+                        <h4>Kiran Kumar</h4>
+                        <span>Startup Founder</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">★★☆☆☆</div>
+                <p>"Product quality is good, but delivery took longer than expected."</p>
+
+                <div class="user">
+                    <div class="avatar">M</div>
+                    <div>
+                        <h4>Meena Joshi</h4>
+                        <span>Teacher</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Repeat for others -->
+
+        </div>
+    </div>
+    <section class="cta">
+
+        <h1>
+            Ready to Shop <span>Smarter?</span>
+        </h1>
+
+        <p>
+            Join thousands of happy customers. Sign up free and start exploring today.
+        </p>
+
+        <div class="cta-buttons">
+            <a href="/user-register" class="cta-btn-primary">
+                🛍 Create Free Account
+            </a>
+
+            <a href="/user-login" class="cta-btn-secondary">
+                Already have an account? Login →
+            </a>
+        </div>
+
+    </section>
+    <!-- CURSOR ELEMENTS -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- SCRIPT (PUT HERE ONLY) -->
+    <script>
+        const cursor = document.querySelector(".cursor");
+        const follower = document.querySelector(".cursor-follower");
+
+        let mouseX = 0, mouseY = 0;
+        let posX = 0, posY = 0;
+
+        document.addEventListener("mousemove", (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            cursor.style.left = mouseX + "px";
+            cursor.style.top = mouseY + "px";
+        });
+
+        function animate() {
+            posX += (mouseX - posX) * 0.15;
+            posY += (mouseY - posY) * 0.15;
+
+            follower.style.left = posX + "px";
+            follower.style.top = posY + "px";
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        document.querySelectorAll("a, button, .step-card").forEach(el => {
+            el.addEventListener("mouseenter", () => {
+                cursor.classList.add("active");
+                follower.classList.add("active");
+            });
+
+            el.addEventListener("mouseleave", () => {
+                cursor.classList.remove("active");
+                follower.classList.remove("active");
+            });
+        });
+    </script>
+    <script>
+        const cards = document.querySelectorAll('.feature-card');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        });
+
+        cards.forEach(card => {
+            card.style.opacity = "0";
+            card.style.transform = "translateY(50px)";
+            card.style.transition = "0.6s ease";
+            observer.observe(card);
+        });
+    </script>
+    <footer class="footer">
+
+        <div class="footer-grid">
+
+            <!-- LOGO + DESC -->
+            <div>
+                <h2>🛒 SmartCart</h2>
+                <p>
+                    India's smartest online shopping platform.
+                    Fast delivery, secure payments, and an experience you'll love.
+                </p>
+            </div>
+
+            <!-- SHOP -->
+            <div>
+                <h3>Shop</h3>
+                <a href="/user-register">Create Account</a>
+                <a href="/user-login">Login</a>
+                <a href="#">Browse Products</a>
+                <a href="#">My Orders</a>
+            </div>
+
+            <!-- ADMIN -->
+            <div>
+                <h3>Admin</h3>
+                <a href="/admin-login">Admin Login</a>
+                <a href="/admin-signup">Admin Signup</a>
+                <a href="#">Dashboard</a>
+            </div>
+
+            <!-- SUPPORT -->
+            <div>
+                <h3>Support</h3>
+                <a href="#">Help Center</a>
+                <a href="#">Shipping Policy</a>
+                <a href="#">Return Policy</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+
+        </div>
+
+        <!-- BOTTOM -->
+        <div class="footer-bottom">
+            <p>
+                © 2026 SmartCart. All Rights Reserved. Designed & Developed by Vivek Naidu ❤️
+            </p>
+
+            <div class="badges">
+                <span>🔒 SSL Secured</span>
+                <span>💳 Razorpay</span>
+                <span>⚡ Flask</span>
+            </div>
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

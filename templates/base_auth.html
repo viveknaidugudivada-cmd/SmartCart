@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SmartCart</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #eef2f7, #f8fafc);
+
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 60px;
+        }
+
+        /* CARD */
+        .card {
+            background: #fff;
+            padding: 40px;
+            width: 370px;
+            border-radius: 14px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        /* LOGO */
+        .logo {
+            text-align: center;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: #f59e0b;
+        }
+
+        /* BADGE */
+        .badge {
+            display: block;
+            width: fit-content;
+            margin: 12px auto 25px;
+            background: #f59e0b;
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 6px;
+        }
+
+        /* TEXT */
+        h2 {
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        /* INFO BOX */
+        .info {
+            background: #eef4ff;
+            border: 1px solid #c7d2fe;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            color: #1e3a8a;
+        }
+
+        /* FORM */
+        label {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            margin-bottom: 18px;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+            background: #f9fafb;
+        }
+
+        input:focus {
+            border-color: #f59e0b;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+        }
+
+        /* BUTTON */
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, #fbbf24, #f59e0b);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* BACK LINK */
+        .back {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 13px;
+        }
+
+        .back a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        /* FLASH */
+        .flash {
+            color: red;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        /* FOOTER */
+        .footer {
+            margin-top: auto;
+            padding: 60px 40px 30px;
+            background: #0f172a;
+            color: white;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .footer a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #facc15;
+        }
+
+        .footer-bottom {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        input[type="file"] {
+            padding: 8px;
+            background: white;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="main-content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- 🔥 GLOBAL FLASH CONTAINER -->
+    <div id="flash-container"></div>
+
+    {% include "footer.html" %}
+
+    <!-- 🔥 JS FILE -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- 🔥 Flask → JS Flash Conversion -->
+    <script>
+        let messages = JSON.parse('{{ get_flashed_messages(with_categories=true) | tojson | safe }}');
+
+        messages.forEach(function(item) {
+            let category = item[0];
+            let message = item[1];
+            showFlash(message, category);
+        });
+    </script>
+
+</body>
+</html>
+
+</html>
